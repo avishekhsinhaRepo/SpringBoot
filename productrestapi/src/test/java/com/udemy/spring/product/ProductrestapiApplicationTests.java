@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.web.client.RestTemplate;
 
@@ -12,12 +13,15 @@ import com.udemy.spring.product.entities.Product;
 @SpringBootTest
 class ProductrestapiApplicationTests {
 
+	@Value("${product.custom.config}")
+	private String customConfiguration;
 	@Test
 	void contextLoads() {
 	}
 
 	@Test
 	public void testGetProduct() {
+		System.out.println("customConfiguration="+customConfiguration);
 		RestTemplate restTemplate = new RestTemplate();
 		Product product = restTemplate.getForObject("http://localhost:8080/productapi/products/1", Product.class);
 		assertNotNull(product);
@@ -51,6 +55,6 @@ class ProductrestapiApplicationTests {
 	@Test
 	public void testDeleteProduct() {
 		RestTemplate restTemplate = new RestTemplate();
-		restTemplate.delete("http://localhost:8080/productapi/products/8");
+		restTemplate.delete("http://localhost:8080/productapi/products/9");
 	}
 }
